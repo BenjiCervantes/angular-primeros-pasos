@@ -5,8 +5,17 @@
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build",
+    "build:href": "ng build --base-href ./",
+    "build:github": "npm run build:href && npm run reorder:dist && npm run delete:docs && npm run create:docs && npm run copy:dist && npm run delete:bases",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "reorder:dist": "npm run copy:browsercontent && npm run delete:browser",
+    "copy:browsercontent": "copyfiles dist/bases/browser/* dist/bases -f",
+    "delete:browser": "del-cli dist/bases/browser",
+    "copy:dist": "copyfiles dist/bases/* ./docs -f",
+    "create:docs": "mkdir docs",
+    "delete:docs": "del-cli docs",
+    "delete:bases": "del-cli dist/bases"
   },
   "private": true,
   "dependencies": {
